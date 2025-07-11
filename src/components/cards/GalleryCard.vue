@@ -91,6 +91,12 @@ defineProps({
     font-weight: 700;
     line-height: 1.2;
     text-shadow: 0 2px 5px rgba($MIDA-DARK, 0.5);
+    position: relative;
+
+    @media (min-width: 1024px) {
+      position: relative;
+      right: 22px;
+    }
   }
 }
 </style>
