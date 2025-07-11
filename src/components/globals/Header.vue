@@ -28,7 +28,7 @@ onUnmounted(() => {
       </figure>
 
       <div class="header__social">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visita nuestro Instagram">
+        <a href="https://www.instagram.com/mida.catering.ec/" target="_blank" rel="noopener noreferrer" aria-label="Visita nuestro Instagram">
           <i class="fa-brands fa-instagram"></i>
         </a>
       </div>

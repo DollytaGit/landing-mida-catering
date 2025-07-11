@@ -1,6 +1,44 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import contactBgImage from '@/assets/contact/contact-img.webp';
+
+// --- CONSTANTES ---
 const emailAddress = 'contacto@mida.com.ec';
+
+// --- ESTADO REACTIVO ---
+// 'displayText' controla el texto que se muestra en el botón.
+const displayText = ref(emailAddress);
+// 'isCopied' nos ayuda a cambiar el estilo del botón como feedback.
+const isCopied = ref(false);
+
+// --- LÓGICA DEL COMPONENTE ---
+const copyEmailToClipboard = async () => {
+  // Prevenimos múltiples clicks si ya está en estado "Copiado".
+  if (isCopied.value) return;
+
+  try {
+    // Usamos la API del Portapapeles para copiar el texto.
+    await navigator.clipboard.writeText(emailAddress);
+
+    // Si la copia es exitosa, actualizamos el estado para dar feedback.
+    isCopied.value = true;
+    displayText.value = '¡Correo Copiado!';
+
+    // Después de 2.5 segundos, revertimos el estado al original.
+    setTimeout(() => {
+      displayText.value = emailAddress;
+      isCopied.value = false;
+    }, 2500);
+
+  } catch (err) {
+    console.error('Error al intentar copiar el correo: ', err);
+    // Opcional: podrías mostrar un mensaje de error al usuario.
+    displayText.value = 'Error al copiar';
+    setTimeout(() => {
+      displayText.value = emailAddress;
+    }, 2500);
+  }
+};
 </script>
 
 <template>
@@ -14,9 +52,17 @@ const emailAddress = 'contacto@mida.com.ec';
       <p class="contact-section__subtitle">
         ¡Estamos ansiosos por escucharte! No dudes en ponerte en contacto con nosotros.
       </p>
-      <a :href="`mailto:${emailAddress}`" class="contact-section__email">
-        {{ emailAddress }}
-      </a>
+
+      <button
+        type="button"
+        class="contact-section__email-btn"
+        @click="copyEmailToClipboard"
+        :class="{ 'copied': isCopied }"
+        aria-label="Copiar correo al portapapeles"
+      >
+        {{ displayText }}
+      </button>
+
     </div>
   </section>
 </template>
@@ -27,19 +73,15 @@ const emailAddress = 'contacto@mida.com.ec';
 .contact-section {
   position: relative;
   padding: 6rem 5%;
-  min-height: 60vh; // Una altura considerable pero menor que el Hero
-
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background-size: cover;
   background-position: center;
-  // El mismo efecto parallax sutil para consistencia
   background-attachment: fixed;
 
-  // Capa oscura para asegurar la legibilidad del texto
   &::before {
     content: '';
     position: absolute;
@@ -78,22 +120,38 @@ const emailAddress = 'contacto@mida.com.ec';
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
-    color: $MIDA-GRAY; // Un color ligeramente diferente para la jerarquía
+    color: $MIDA-GRAY;
   }
 
-  &__email {
+  // --- Estilos para el nuevo botón de copiar ---
+  &__email-btn {
+    // Reseteamos los estilos por defecto de un botón
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
     font-family: var(--font-poppins);
     font-weight: 500;
     font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: $MIDA-LIGHT;
     text-decoration: none;
     border-bottom: 2px solid transparent;
+    padding-bottom: 4px; // Pequeño ajuste para que el borde no esté tan pegado
     transition: color 0.3s ease, border-color 0.3s ease;
 
-    &:hover {
-      // Al pasar el mouse, el color cambia a uno de acento y aparece un subrayado
+    &:hover:not(.copied) {
+      // Efecto hover solo cuando no está en estado "copiado"
       color: $MIDA-GREEN;
       border-color: $MIDA-GREEN;
+    }
+
+    // Estilo para el estado de feedback "¡Copiado!"
+    &.copied {
+      color: $MIDA-GREEN;
+      border-color: $MIDA-GREEN;
+      cursor: default;
     }
   }
 }
