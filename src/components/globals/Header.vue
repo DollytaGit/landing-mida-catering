@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import midaLogoSrc from '@/assets/logos/mida-logo.webp'
 
 // --- Estado Reactivo ---
 
@@ -48,7 +49,7 @@ onUnmounted(() => {
   >
     <div class="header__container">
       <a href="/" class="header__logo" aria-label="MIDA Catering - Inicio">
-        MIDA
+        <img :src="midaLogoSrc" alt="Logo de MIDA Catering" />
       </a>
 
       <button
@@ -113,12 +114,15 @@ onUnmounted(() => {
   }
 
   &__logo {
-    font-family: var(--font-titillium); // Titillium o una fuente serif da un toque elegante
-    font-weight: 600;
-    font-size: 2rem;
     text-decoration: none;
-    color: inherit; // Hereda el color del padre (.header)
-    transition: color 0.4s ease;
+    color: inherit;
+
+    img {
+      display: block; // Previene espacios indeseados debajo de la imagen
+      height: 40px; // Altura base del logo, ajústala según necesites
+      width: auto; // Mantiene la proporción del logo
+      transition: height 0.4s ease; // Anima también el tamaño del logo al hacer scroll
+    }
   }
 
   // --- Estilos Mobile First ---
@@ -198,6 +202,10 @@ onUnmounted(() => {
     color: $MIDA-DARK; // Cambia el color para todos los hijos
     padding: 1rem 5%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    .header__logo img {
+      height: 35px; // Hacemos el logo ligeramente más pequeño al hacer scroll
+    }
 
     .header__mobile-toggle-bar {
       background: $MIDA-DARK;

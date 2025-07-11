@@ -6,7 +6,7 @@ import Header from './components/globals/Header.vue';
 
 <template>
   <Header/>
-  <main>
+  <main class="main-content">
     <RouterView />
   </main>
   <Footer />
@@ -18,6 +18,7 @@ import Header from './components/globals/Header.vue';
 
 .main-content {
   min-height: 100vh;
+  margin-top: 86px;
 }
 
 .main-content.with-header {
