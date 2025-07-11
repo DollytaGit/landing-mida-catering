@@ -53,7 +53,7 @@ onUnmounted(() => {
   transition: background-color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
 
   &.scrolled {
-    background-color: $MIDA-LIGHT;
+    background-color: $MIDA-DARK;
     color: $MIDA-DARK;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
     padding: 1rem 5%;
@@ -109,7 +109,7 @@ onUnmounted(() => {
     }
 
     i {
-      font-size: 1.75rem;
+      font-size: 2.5rem;
       vertical-align: middle;
     }
   }
