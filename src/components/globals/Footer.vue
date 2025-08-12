@@ -9,10 +9,6 @@ const currentYear = new Date().getFullYear();
         &copy; {{ currentYear }} MIDA Catering. Todos los derechos reservados.
       </p>
       <p class="footer__text">
-        <span>Diseñado por</span>
-        <a href="https://www.instagram.com/yeyo.dev/" target="_blank" rel="noopener noreferrer" title="Visita yeyo.dev">
-          yeyodev
-        </a>
       </p>
     </div>
   </footer>

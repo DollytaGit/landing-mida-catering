@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const phoneNumber = '593968617115';
+const phoneNumber = '593968459686';
 const preFilledMessage = 'Hola, estoy interesado en sus servicios de catering y me gustaría más información.';
 
 const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(preFilledMessage)}`;
